@@ -3,6 +3,7 @@
 
 import re
 from typing import Callable, Union
+from warnings import warn
 
 
 def do_arithmetic(x: str, y: str, func: Callable):
@@ -112,6 +113,10 @@ def test_interpreter():
         actual_result = None
         try:
             actual_result = eval_expr(equation)
+            if not isinstance(actual_result, str):
+                actual_result = str(actual_result)
+                warn(f'The final result should be returned as a string, not {type(actual_result).__name__}!',
+                     UserWarning, stacklevel=2)
             assert actual_result == result
         except AssertionError:
             failed_tests += 1

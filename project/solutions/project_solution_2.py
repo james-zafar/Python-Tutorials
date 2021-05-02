@@ -1,5 +1,7 @@
 # Mathematical expression interpreter
 # Solution 2
+from warnings import warn
+
 
 def add(x, y):
     return x + y
@@ -123,6 +125,10 @@ def test_interpreter():
         actual_result = None
         try:
             actual_result = interpreter(equation)
+            if not isinstance(actual_result, str):
+                actual_result = str(actual_result)
+                warn(f'The final result should be returned as a string, not {type(actual_result).__name__}!',
+                     UserWarning, stacklevel=2)
             assert actual_result == result
         except AssertionError:
             failed_tests += 1

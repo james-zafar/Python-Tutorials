@@ -26,6 +26,8 @@
 # Extension: Can you enhance your solution to allow for negative numbers
 # in the input? Note: You do not need to account for multiple negation
 # of numbers e.g '3 + -4' should return -1.0 but '3 + -(-4)' is not valid.
+from warnings import warn
+
 
 def interpreter(expression: str) -> str:
     # TODO: Add your implementation here
@@ -46,6 +48,10 @@ def test_interpreter():
         actual_result = None
         try:
             actual_result = interpreter(equation)
+            if not isinstance(actual_result, str):
+                actual_result = str(actual_result)
+                warn(f'The final result should be returned as a string, not {type(actual_result).__name__}!',
+                     UserWarning, stacklevel=2)
             assert actual_result == result
         except AssertionError:
             failed_tests += 1

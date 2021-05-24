@@ -1,0 +1,11 @@
+name,stock_quantity,cost_price,sell_price,shelf_life,case_size
+Bread,1,0.6,1.1,5,1
+Cakes,0,1.1,3.99,12,4
+Milk,100,0.7,1.0,8,1
+Water,85,0.3,1.1,,24
+Pasta,40,0.5,0.9,200,12
+Crisps,44,0.6,2.3,30,18
+Rice,390,0.2,1.2,200,8
+Yogurt,44,0.5,0.99,14,12
+Biscuits,120,0.9,2.5,50,36
+Coffee,5,2.2,5.9,100,6

@@ -73,9 +73,9 @@ def exercise_3_tests(klass: Callable) -> None:
 
 
 def exercise_4_tests(klass: Callable) -> None:
-    # Test 1: Success case, game completes successfully
     test_complete_game_success_case(klass)
     test_complete_game_failure_case(klass)
+    print('Tests passed, you may now move on to the next exercise')
 
 
 def test_complete_game_success_case(klass: Callable) -> None:
@@ -111,4 +111,22 @@ def test_complete_game_failure_case(klass: Callable) -> None:
                        'The correct answer was word']
     for idx, line in enumerate(output_lines):
         assert line == expected_output[idx], f'Error: Expected line {idx} to be {expected_output[idx]}, but instead found {line}'
+
+
+def exercise_5_tests(klass: Callable) -> None:
+    test_complete_game_with_bad_input(klass)
+    test_complete_game_success_case(klass)
+    print('All test cases passed!')
+
+
+def test_complete_game_with_bad_input(klass: Callable) -> None:
+    mock_input = ['t', 'e', 'e', 'ss', 's']
+    print(f'Playing game with inputs \'{mock_input}\' with target word \'test\'')
+    output_lines = play_mock_game(klass, mock_input, 'test')
+    assert len(output_lines) == 10, f'Expected to find 14 output lines, but instead found {len(output_lines)}'
+    expected_output = ['____', "The letter 't' is correct!", 't__t', "The letter 'e' is correct!", 'te_t',
+                       'Error: The letter e has already been guessed', "Error: 'ss' is not a valid character",
+                       "The letter 's' is correct!", 'test', 'Congratulation, you won with 6 guesses left!']
+    for idx, line in enumerate(expected_output):
+        assert line == expected_output[idx], f'Error: Expected output for line {idx} to match {expected_output[idx]}, but instead got {line}'
 

@@ -2,12 +2,26 @@ import random
 
 import requests
 
-from hangman.test_suite import exercise_4_tests
+from hangman.test_suite import exercise_5_tests
 
-# IMPORTANT: To run the solutions, you must run the following to run hangman
-# as a package:
-# python -m hangman.solutions.exercise_4
-# from outside of the hangman directory
+# Exercise 5
+# We now have a fully functional hangman game! We can now look at ways to enhance and
+# improve the initial implementation. One potential feature we could enhance is the
+# handling of user input. At the moment we assume the user will enter a valid character
+# but this may not be the case. In this exercise, we will enhance this feature to validate
+# the user input before continuing with the game.
+# Exercises
+# 1 - Change the play_game function to fetch user input from the get_user_input function
+# 2 - In get_user_input, check that the string is a single character a-z, not including
+#   numbers and if not, output the following error message and ask the user to provide
+#   input again
+#   Error: '<<INSERT INPUT>>' is not a valid character
+# 3 - Change play_game to not check if the letter the user input has already been guessed
+#   and instead check this in the get_user_input function
+# 4 - Validate that your solution is correct by running the code and checking that all
+#   test cases have passed
+
+# Extension: Can you think of any other ways to enhance the implementation of hangman?
 
 
 class HangMan:
@@ -34,6 +48,9 @@ class HangMan:
             self.completed_word[idx] = letter
         print(''.join(self.completed_word))
 
+    def get_user_input(self) -> str:
+        ...
+
     def play_game(self) -> None:
         print(''.join(self.completed_word))
         while self.guesses_remaining > 0 and '_' in self.completed_word:
@@ -57,6 +74,6 @@ class HangMan:
 
 
 if __name__ == '__main__':
-    exercise_4_tests(HangMan)
+    exercise_5_tests(HangMan)
     word = str(input('Enter a word, or press enter to skip this stage: '))
     HangMan(word)

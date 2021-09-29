@@ -1,12 +1,13 @@
 import random
+import string
 
 import requests
 
-from hangman.test_suite import exercise_4_tests
+from hangman.test_suite import exercise_5_tests
 
 # IMPORTANT: To run the solutions, you must run the following to run hangman
 # as a package:
-# python -m hangman.solutions.exercise_4
+# python -m hangman.solutions.exercise_5
 # from outside of the hangman directory
 
 
@@ -34,13 +35,20 @@ class HangMan:
             self.completed_word[idx] = letter
         print(''.join(self.completed_word))
 
+    def get_user_input(self) -> str:
+        guess = str(input('Enter a letter to guess: ')).lower()
+        if guess not in string.ascii_lowercase:
+            print(f'Error: \'{guess}\' is not a valid character')
+            return self.get_user_input()
+        if guess in self.guessed:
+            print(f'Error: The letter {guess} has already been guessed')
+            return self.get_user_input()
+        return guess
+
     def play_game(self) -> None:
         print(''.join(self.completed_word))
         while self.guesses_remaining > 0 and '_' in self.completed_word:
-            guess = str(input('Enter a letter to guess: ')).lower()
-            if guess in self.guessed:
-                print(f'Error: The letter {guess} has already been guessed')
-                continue
+            guess = self.get_user_input()
             self.guessed.add(guess)
             if guess not in self.letters:
                 self.guesses_remaining -= 1
@@ -57,6 +65,6 @@ class HangMan:
 
 
 if __name__ == '__main__':
-    exercise_4_tests(HangMan)
+    exercise_5_tests(HangMan)
     word = str(input('Enter a word, or press enter to skip this stage: '))
     HangMan(word)

@@ -1,30 +1,46 @@
 # Exercise 1
-# exercise_1.csv contains two columns, one labelled 'investment'
-# and another labelled 'return' which shows the amount of money
-# you will get back after a 1 year investment. We would like to plot
-# this using matplotlib and save the contents to a file called
-# "exercise_1.jpg". The current implementation does not save the plot.
-# Why?
+# We would like to find the days on which the exchange rate from GBP to
+# USD was best and worst for a given time period. The user should provide
+# an API key so that we can fetch the data from the API and then process it.
+# We will put the resulting data in a Pandas DataFrame. The output should be
+# the row of the data frame representing the date so should display the date,
+# column title and exchange rate.
 
-# Extension: Can you add labels to the x and y axis, giving them
-# appropriate names and also give the plot a relevant title?
+# Extension: Could we enhance this to allow the user to input what currencies
+# they would like to compare?
+
+# Further extension: Can you add some code to handle unexpected responses from
+# the API to prevent data processing errors later on?
+
+# NB: If you do not have an API key you may skip the stage where asked for user
+# input (press enter leaving the input blank) and one will be provided for you.
 
 
-import matplotlib.pyplot as plt
 import pandas as pd
+import requests
 
 
-def read_file(file_name) -> pd.DataFrame:
-    return pd.read_csv(file_name)
+def get_api_key() -> str:
+    return input('Enter your API key (optional): ') or '195e511a55f0f4767b72'
 
 
-def generate_plot(data: pd.DataFrame) -> None:
-    plt.plot(data['investment'], data['return'])
+def get_api_data(api_key: str) -> dict:
+    data = requests.get(f'https://free.currconv.com/api/v7/convert?q=GBP_USD&compact=ultra&date=2021-03-15&endDate=2021-03-22&apiKey={api_key}')
+    return data.text
 
 
-def main():
-    data = read_file('exercise_1.csv')
-    generate_plot(data)
+def process_data(data: dict) -> None:
+    df = pd.DataFrame(data)
+    max_value = df['GBP_USD'].max()
+    min_value = df['GBP_USD'].min()
+    print('The worst exchange rate:\n', min_value)
+    print('The best exchange rate:\n', max_value)
+
+
+def main() -> None:
+    api_key = get_api_key()
+    data = get_api_data(api_key)
+    process_data(data)
 
 
 main()

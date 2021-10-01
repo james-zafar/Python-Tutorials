@@ -1,20 +1,4 @@
-# Exercise 5
-# Customer Management system
-# The goal of this exercise is to give an example of writing clean,
-# concise code. Customers are stored as a CSV called 'exercise_4.csv'.
-# The first time you run this program that file will not exist - it
-# will be created an populated for you. There are 4 options the user
-# can choose to amend or view customer data.
-# Read the below code to understand what it is doing and complete the
-# exercises below. Some functions have comments to signify that they
-# should not be edited, this means you should be able to complete all
-# exercises without changing anything in these functions.
-
-# (I) If the user provides no input when prompted the program should call
-# the save_data() function and exit, but it doesn't. Can you fix this?
-# (II) Complete the add_customer() function
-# (III) Enhance the print_average() function following the specification
-# provided in the function body
+# Exercise 5 - Solution
 
 import string
 
@@ -23,17 +7,14 @@ import pandas as pd
 
 
 def save_data(df: pd.DataFrame) -> None:
-    # DO NOT EDIT
     df.to_csv('exercise_3.csv', index=False)
 
 
 def generate_customer_id():
-    # DO NOT EDIT
     return ''.join([np.random.choice(list(string.digits)) for _ in range(8)])
 
 
 def generate_customer_data() -> pd.DataFrame:
-    # DO NOT EDIT
     customers_df = pd.DataFrame()
     for i in range(10):
         customer_id = generate_customer_id()
@@ -47,19 +28,16 @@ def generate_customer_data() -> pd.DataFrame:
 
 
 def print_options():
-    # DO NOT EDIT
     options = ['1 - Print average spend', '2 - Print customer summary',
                '3 - Add new customer', '4 - Remove customer']
     print(*options, sep='\n')
 
 
 def get_user_input():
-    # DO NOT EDIT
     return input('Enter an option (skip to exit): ') or -1
 
 
 def read_data(file_name: str = 'exercise_3.csv') -> pd.DataFrame:
-    # DO NOT EDIT
     try:
         return pd.read_csv(file_name)
     except FileNotFoundError:
@@ -68,11 +46,14 @@ def read_data(file_name: str = 'exercise_3.csv') -> pd.DataFrame:
 
 def print_average(customers: pd.DataFrame) -> pd.DataFrame:
     print(f'The average spend of all customers is £{round(customers.average_spend.mean(), 2)}')
-    # TODO:
-    #  Generate a random normally distributed number.
-    #  If the number is > 0.54 increase ALL values in the average_spend column
-    #  by 2%. If the number is > 0.96 increase ALL values in the average_spend
-    #  column by 6%, else decrease ALL values by 3%.
+    rand_no = np.random.randn()
+    if rand_no > 0.54:
+        customers['average_spend'] = customers['average_spend'] * 1.02
+    elif rand_no > 0.95:
+        customers['average_spend'] = customers['average_spend'] * 1.06
+    else:
+        customers['average_spend'] = customers['average_spend'] * 0.97
+    customers['average_spend'] = customers.average_spend.round(2)
     return customers
 
 
@@ -87,15 +68,19 @@ def print_summary(customers: pd.DataFrame) -> pd.DataFrame:
 
 
 def add_customer(customers: pd.DataFrame) -> pd.DataFrame:
-    # TODO: Implement this function
-    #  The user should provide:
-    #    - an average spend rounded to 2 decimal places
-    #    - A customer type which must be either standard, prime or vip
-    #    - A Y/N option to specify whether the customer is online only
-    #    - If any input is invalid it should be requested again in a loop until valid input is provided
-    #  A customer ID should be generated via the generate_customer_id() function
-    #  The new customer should be appended to the customers df and the new updated df returned
-    return customers
+    avg_spend = round(float(input('Enter the customers average spend: ')), 2)
+    customer_type = input('Enter the customer type (standard/prime/vip): ').lower()
+    while customer_type not in ['standard', 'prime', 'vip']:
+        print('Customer type is invalid.')
+        customer_type = input('Enter the customer type (standard/prime/vip): ').lower()
+    online = input('Is the customer an online only customer? (Y/N): ').upper()
+    while online != 'N' and online != 'Y':
+        print('Error response for customer is online only must be \'Y\' or \'N\'.')
+        online = input('Is the customer an online only customer? (Y/N): ').upper()
+    customer_id = generate_customer_id()
+
+    return customers.append({'customer_id': customer_id, 'customer_type': customer_type,
+                             'average_spend': avg_spend, 'online': online}, ignore_index=True)
 
 
 def remove_customer(customers: pd.DataFrame) -> pd.DataFrame:
@@ -114,6 +99,9 @@ def main() -> None:
         if loop_count % 3 == 0:
             print_options()
         user_input = int(get_user_input())
+        if user_input == -1:
+            save_data(customers_df)
+            break
         try:
             customers_df = functions_dict[user_input](customers_df)
         except KeyError:

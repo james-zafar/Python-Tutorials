@@ -1,25 +1,24 @@
 import numpy as np
 
-# Exercise 1
-# Implement each of the functions below, following the specification provided in each function.
-# You can ensure your solution is correct by running the file and verifying that all of the
-# test cases pass
+# Exercise 1 - Solution
 
 
 def get_all_even_numbers(arr: np.array) -> np.array:
-    # Return a NumPy array containing all of the even numbers from the input array
-    pass
+    return arr[arr % 2 == 0]
 
 
 def replace_all_multiples_of_4(arr: np.array) -> np.array:
-    # Replace all multiples of 4 in the input array with -1 and return the resulting array
-    pass
+    arr[arr % 4 == 0] = -1
+    return arr
 
 
 def get_with_constraints(arr: np.array, lower_bound: int, upper_bound: int) -> np.array:
-    # Return a NumPy array containing all of the numbers in the original array that are
-    # greater than or equal to the lower bound and less than or equal to the upper bound
-    pass
+    # Solution 1:
+    # return np.where((arr >= lower_bound) & (arr <= upper_bound))[0]
+    # Solution 2:
+    # return np.where(np.logical_and(arr >= lower_bound, arr <= upper_bound))[0]
+    # Solution 3:
+    return arr[(arr >= lower_bound) & (arr <= upper_bound)]
 
 
 def run_tests():

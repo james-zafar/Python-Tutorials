@@ -16,7 +16,7 @@ import pandas as pd
 
 # 'init_db' should do the same as init_db in TicTacToe - read the existing leaderboard file
 #   if it exists, and if not initialise an empty database.
-# 'name_exists' should return True if the name already exists in the leaderboard,
+# 'player_exists' should return True if the name already exists in the leaderboard,
 #   and return False if it doesn't.
 # 'insert' should add a new row to the leaderboard with the given name. The new row should be
 #   initialised with 0 wins and 0 losses.
@@ -88,7 +88,7 @@ class Leaderboard:
     def init_db(self) -> None:
         pass
 
-    def name_exists(self, name: str) -> bool:
+    def player_exists(self, name: str) -> bool:
         pass
 
     def insert(self, name: str) -> None:

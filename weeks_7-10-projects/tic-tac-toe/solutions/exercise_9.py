@@ -65,6 +65,8 @@ class Leaderboard:
         self.DATABASE_FILE = 'tic_tac_toe.csv'
         self._leaderboard = None  # type: pd.DataFrame
 
+        self.init_db()
+
     def init_db(self) -> None:
         path = Path(self.DATABASE_FILE)
         if path.is_file():
@@ -72,7 +74,7 @@ class Leaderboard:
         else:
             self._leaderboard = pd.DataFrame(columns=['Name', 'Wins', 'Losses'])
 
-    def name_exists(self, name: str) -> bool:
+    def player_exists(self, name: str) -> bool:
         return name in self._leaderboard.Name.values
 
     def insert(self, name: str) -> None:
@@ -85,6 +87,14 @@ class Leaderboard:
         if column != 'Wins' and column != 'Losses':
             raise AttributeError(f'LeaderBoard has no column named \'{column}\'')
         self._leaderboard.loc[self._leaderboard.Name == name, column] += 1
+
+    def get_player(self, player_name: str) -> str:
+        if not self.player_exists(player_name):
+            return f'Error: The player \'{player_name}\' could not be located'
+        player_stats = self._leaderboard.loc[self._leaderboard['Name'] == player_name]
+        stats_list = player_stats.values.flatten()
+
+        return f'{stats_list[0]} has {stats_list[1]} wins and {stats_list[2]} losses'
 
     def close(self) -> None:
         self._leaderboard.to_csv(self.DATABASE_FILE, index=False)
@@ -108,15 +118,14 @@ class TicTacToe:
         self.init_game()
 
     def init_game(self) -> None:
-        self.leaderboard.init_db()
         player_one = str(input('Enter the name of Player 1: '))
         self.player_one = Player(player_one, 'O')
-        if not self.leaderboard.name_exists(player_one):
+        if not self.leaderboard.player_exists(player_one):
             self.leaderboard.insert(player_one)
 
         player_two = str(input('Enter the name of Player 2, or press enter to play against the computer: '))
         self.player_two = Player(player_two, 'X')
-        if player_two and not self.leaderboard.name_exists(player_two):
+        if player_two and not self.leaderboard.player_exists(player_two):
             self.leaderboard.insert(player_two)
 
         self.play_game()
@@ -182,5 +191,22 @@ class TicTacToe:
         self.leaderboard.close()
 
 
-if __name__ == '__main__':
+def query_leaderboard(leader_board: Leaderboard = None) -> None:
+    leader_board = leader_board if leader_board else Leaderboard()
+    name = str(input('Enter the name of the player you would like to query: '))
+    print(leader_board.get_player(name))
+    query_again = str(input('Would you like to query another player (Y/N)? '))
+    if query_again.upper() == 'Y' or 'YES' in query_again.upper():
+        query_leaderboard(leader_board)
+
+
+def main() -> None:
+    choice = int(input('Enter 1 to query a player, or 2 to start a game of Noughts and Crosses: '))
+    if choice == 1:
+        query_leaderboard()
+    # Start a game after the user has finished querying database
     TicTacToe()
+
+
+if __name__ == '__main__':
+    main()

@@ -14,11 +14,11 @@
 # | Bread   | 0.96  |
 # +=========+=======+
 
-def sort_input(unsorted_dict: dict):
+def sort_input(unsorted_dict: dict[str, float]) -> list[str]:
     return sorted(unsorted_dict)
 
 
-def get_user_input():
+def get_user_input() -> dict[str, float]:
     items = {}
     while True:
         name = input('Enter product name: ')

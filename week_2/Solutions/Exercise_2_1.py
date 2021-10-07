@@ -1,3 +1,5 @@
+from typing import Union
+
 # Exercise 2
 # We would like to be able to compute simple and compound
 # interest on a given sum of money to compute which one yields
@@ -20,19 +22,19 @@ max_simple_interest = 0.06
 max_compound_interest = 0.04
 
 
-def calculate_simple_interest(starting_amount, interest_rate, years):
+def calculate_simple_interest(starting_amount: Union[int, float], interest_rate: float, years: int) -> float:
     if interest_rate > max_simple_interest:
         interest_rate = max_simple_interest
     return round(starting_amount + (starting_amount * interest_rate * years), 2)
 
 
-def calculate_compound_interest(starting_amount, interest_rate, years):
+def calculate_compound_interest(starting_amount: Union[int, float], interest_rate: float, years: int) -> float:
     if interest_rate > max_compound_interest:
         interest_rate = max_compound_interest
     return round(starting_amount * ((1 + interest_rate) ** years), 2)
 
 
-def get_best_investment(starting_amount, interest, years):
+def get_best_investment(starting_amount: Union[int, float], interest: float, years: int) -> None:
     compound = calculate_compound_interest(starting_amount, interest, years)
     simple = calculate_simple_interest(starting_amount, interest, years)
     if compound > simple:

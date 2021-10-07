@@ -5,7 +5,7 @@
 
 # Extension: Are there any other ways we can remove the first element from a list?
 
-def remove_first_element(input_list: list) -> list:
+def remove_first_element(input_list: list[int]) -> list[int]:
     del input_list[1]
     return input_list
 

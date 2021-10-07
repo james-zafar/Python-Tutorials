@@ -2,13 +2,13 @@
 # When running main() we enter an infinite loop. A correct implementation would exit the loop
 # when the user inputs 'N' or 'n'
 
-def process_user(name: str, postcode: str, phone_number: str):
+def process_user(name: str, postcode: str, phone_number: str) -> None:
     print('Name:', name)
     print('Postcode:', postcode)
     print('Contact Number:', phone_number)
 
 
-def main():
+def main() -> None:
     while True:
         name = input('Enter your name: ')
         postcode = input('Enter your post code: ')

@@ -15,17 +15,17 @@
 # +=========+=======+
 
 
-def sort_input(unsorted_dict: dict):
+def sort_input(unsorted_dict: dict[str, float]) -> list[str]:
     return sorted(unsorted_dict, key=unsorted_dict.get, reverse=True)
 
 
-def print_sorted_input(unsorted_dict: dict):
+def print_sorted_input(unsorted_dict: dict[str, float]) -> None:
     sorted_products = sort_input(unsorted_dict)
     for product in sorted_products:
         print('Name:', product, 'Price:', unsorted_dict[product])
 
 
-def get_user_input():
+def get_user_input() -> dict[str, float]:
     items = {}
     while True:
         name = input('Enter product name: ')

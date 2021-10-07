@@ -3,7 +3,7 @@
 # input_list by 2 and print the resulting list. Currently the function is
 # stuck in an infinite loop, why is this?
 
-def multiply_by_two(input_list: list):
+def multiply_by_two(input_list: list[int]) -> None:
     # Initialise multiple_list to be a new empty list
     # In the original problem multiple_list was a pointer to input_list meaning
     # whenever we appended a new value to multiple_list we are also changing

@@ -6,7 +6,7 @@
 from math import sqrt
 
 
-def is_prime(number):
+def is_prime(number: int) -> bool:
     if number == 2:
         return True
     if number < 2 or number % 2 == 0:
@@ -18,7 +18,7 @@ def is_prime(number):
     return True
 
 
-def get_rotations(number):
+def get_rotations(number: int) -> list[list[int]]:
     number_as_list = [int(i) for i in str(number)]
     output = []
     for i in range(len(number_as_list)):
@@ -26,7 +26,7 @@ def get_rotations(number):
     return output
 
 
-def is_circular_prime(number):
+def is_circular_prime(number: int) -> bool:
     number_rotations = get_rotations(number)
     for num in number_rotations:
         if not is_prime(int(''.join(str(i) for i in num))):
@@ -35,7 +35,7 @@ def is_circular_prime(number):
     return True
 
 
-def main():
+def main() -> None:
     circular_primes = []
     for i in range(5001):
         if is_circular_prime(i):

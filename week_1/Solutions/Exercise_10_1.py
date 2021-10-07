@@ -10,7 +10,7 @@
 # exception on when we use this as input on line 26. Why is this?
 
 
-def is_palindrome(phrase):
+def is_palindrome(phrase: str) -> bool:
     # Strip any whitespace and convert the input to lower case
     phrase = phrase.replace(' ', '').lower()
     # Next we should remove any punctuation

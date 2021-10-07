@@ -6,7 +6,7 @@
 from math import sqrt
 
 
-def is_prime(number):
+def is_prime(number: int) -> bool:
     if number < 2 or number % 2 == 0:
         return False
     square_root = int(sqrt(number)) + 1
@@ -16,7 +16,7 @@ def is_prime(number):
     return True
 
 
-def is_circular_prime(number):
+def is_circular_prime(number: int) -> bool:
     if is_prime(number):
         reversed_no = int(str(number)[::-1])
         return is_prime(reversed_no)
@@ -24,7 +24,7 @@ def is_circular_prime(number):
     return False
 
 
-def main():
+def main() -> None:
     circular_primes = []
     for i in range(5001):
         if is_circular_prime(i):

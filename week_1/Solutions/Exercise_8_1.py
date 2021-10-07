@@ -3,7 +3,7 @@
 # For example if max_n is 9, the output should be (3 + 5 + 6 + 9) = 23
 # The output for the examples below is incorrect. Why is this?
 
-def count_multiples(max_n: int):
+def count_multiples(max_n: int) -> None:
     sum_ = 0
     for i in range(max_n + 1):
         if i % 3 == 0:

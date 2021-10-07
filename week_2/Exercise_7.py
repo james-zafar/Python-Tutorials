@@ -7,7 +7,7 @@
 # 1 back as the return value but that is not the case, why?
 
 
-def add_one(input_list = []):
+def add_one(input_list: list[int] = []) -> list[int]:
     input_list.append(1)
     return input_list
 

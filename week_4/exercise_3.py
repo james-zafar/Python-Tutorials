@@ -17,7 +17,7 @@ import numpy as np
 import pandas as pd
 
 
-def random_date_generator(start_date, max_range) -> np.datetime64:
+def random_date_generator(start_date: str, max_range: int) -> np.datetime64:
     random_date = np.datetime64(start_date) + np.random.randint(0, max_range)
     return random_date
 

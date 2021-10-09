@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-def read_file(file_name) -> pd.DataFrame:
+def read_file(file_name: str) -> pd.DataFrame:
     return pd.read_csv(file_name)
 
 
@@ -17,7 +17,7 @@ def generate_plot(data: pd.DataFrame) -> None:
     plt.savefig('exercise_1.jpg')
 
 
-def main():
+def main() -> None:
     data = read_file('../exercise_1.csv')
     generate_plot(data)
 

@@ -10,7 +10,7 @@ def save_data(df: pd.DataFrame) -> None:
     df.to_csv('exercise_3.csv', index=False)
 
 
-def generate_customer_id():
+def generate_customer_id() -> str:
     return ''.join([np.random.choice(list(string.digits)) for _ in range(8)])
 
 
@@ -27,14 +27,14 @@ def generate_customer_data() -> pd.DataFrame:
     return customers_df
 
 
-def print_options():
+def print_options() -> None:
     options = ['1 - Print average spend', '2 - Print customer summary',
                '3 - Add new customer', '4 - Remove customer']
     print(*options, sep='\n')
 
 
-def get_user_input():
-    return input('Enter an option (skip to exit): ') or -1
+def get_user_input() -> int:
+    return int(input('Enter an option (skip to exit): ')) or -1
 
 
 def read_data(file_name: str = 'exercise_3.csv') -> pd.DataFrame:

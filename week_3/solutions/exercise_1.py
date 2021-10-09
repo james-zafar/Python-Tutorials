@@ -21,7 +21,7 @@ def get_with_constraints(arr: np.array, lower_bound: int, upper_bound: int) -> n
     return arr[(arr >= lower_bound) & (arr <= upper_bound)]
 
 
-def run_tests():
+def run_tests() -> None:
     # Test get_all_even_numbers
     test_array = np.arange(20)
     result = get_all_even_numbers(test_array)

@@ -1,5 +1,5 @@
 import uuid
-from typing import TypeVar
+from typing import TypeVar, Union
 
 T = TypeVar('T')
 
@@ -51,13 +51,20 @@ class Book(FrozenInstance):
     def id(self) -> str:
         return str(self._id)
 
+    def __dict__(self) -> dict[str, Union[str, int, bool]]:
+        return {
+            'title': self._title,
+            'author': self._author,
+            'isbn': self._isbn,
+            'id': self._id,
+            'on_loan': self._on_loan
+        }
+
     def __str__(self) -> str:
-        return f'{self.id = }, {self.title = }, {self.author = }, {self.isbn = }'
+        return f'{self.id = }, {self.title = }, {self.author = }, {self.isbn = }, Available? {self._on_loan}'
 
     def __repr__(self) -> str:
-        return f'{self.__class__.__qualname__}({self._title!r}, {self._author!r}, {self._isbn!r}), {self._on_loan!r}'
+        return f'{self.__class__.__qualname__}({self._title!r}, {self._author!r}, {self._isbn!r})'
 
     def __eq__(self, other: 'Book') -> bool:
         return self._title == other._title and self._author == other._author and self._isbn == other._isbn
-
-

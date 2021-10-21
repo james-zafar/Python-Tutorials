@@ -1,13 +1,13 @@
 # Exercise 10
 # A palindrome is a word, number, phrase, or other sequence of characters which 
 # reads the same backward as forward
-#  In this example the phrase "a bba" should be a valid palindrome if we ignore white space,
+# In this example the phrase "a bba" should be a valid palindrome if we ignore white space,
 # but the function returns False. How can we fix this?
 
 # Extension: Could we further extend this solution to ignore the case, 
 # such that "a bBa" is also considered a valid palindrome on line 24?
 # Further Extension: "don't nod" is a valid palindrome but raises an
-# exception on when we use this as input on line 26. Why is this?
+# exception when we use this as input on line 26. Why is this?
 
 
 def is_palindrome(phrase: str) -> bool:

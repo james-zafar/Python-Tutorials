@@ -66,21 +66,21 @@ be returned. The return date must be a valid date in the format `YYYY-MM-DD`
 The Library class provides an interface for managing books and loans. The functions provided as part of this class are:
 - ```python
   add_book(self, title: str, author: str, isbn: int) -> None
-    ```
+  ```
     - Used to add a new book to the library
 - ```python
-    get_book(self, title: str, author: str = None, isbn: int = None, book_id: str = None) -> Iterable[Book]
-    ```
+  get_book(self, title: str, author: str = None, isbn: int = None, book_id: str = None) -> Iterable[Book]
+   ```
   - Used to get a book from the library. Returns an iterable of potential books that match the specified criteria.
     `title` is required, all other fields are optional and will only be included as search parameters if they are provided.
 - ```python
-    remove_book(self, title: str, book_id: str = None) -> bool
-    ```
+  remove_book(self, title: str, book_id: str = None) -> bool
+  ```
   - Removes the specified book. `book_id` is optional, but will be used as a search parameter if provided.
     The function will return True if the book was removed successfully, and False if not.
   - ```python
-      book_exists(self, title: str, author: str = None, isbn: int = None) -> bool
-      ```
+    book_exists(self, title: str, author: str = None, isbn: int = None) -> bool
+    ```
     - Used to check if a book exists. `title` is a required search parameter, all other fields are optional, and 
       will be included as search parameters only if they are specified. Returns True if a book matching the search 
       criteria exists in the library, otherwise returns False.
@@ -89,20 +89,20 @@ The Library class provides an interface for managing books and loans. The functi
     ```
     - Used to check if a book with the specified title exists. Returns True if a book does exist, and False if not.
   - ```python
-     def loan_book(self, title: str, loan_to: str, due_date: str) -> None
+    loan_book(self, title: str, loan_to: str, due_date: str) -> None
     ```
     - Creates a new loan for the specified book. If multiple books with the same title exist, the first available book 
       instance will be used. The function will raise an `AttributeError` if no books with the specified title 
       are available, and will raise a `ValueError` if the due_date specified is not a valid date in the format `YYYY-MM-DD`.
   - ```python
-     return_book(self, book_title: str, loaned_to: str, due_date: str = None) -> Optional[float]:
+    return_book(self, book_title: str, loaned_to: str, due_date: str = None) -> Optional[float]:
     ```
     - Used to return a book with the specified title that is on loan to the specified person. If the due date is 
     specified, this will be used search for the correct loan, otherwise it will be ignored. The function will return a float
     representing the fine due (if any), or raise an `AttributeError` if no loan with the specified parameters exists. 
     A `ValueError` will be raised if a `due_date` is provided that is not a valid date in the format `YYYY-MM-DD`.
   - ```python
-     def save_library(self, file_name: str = None) -> None:
+    save_library(self, file_name: str = None) -> None:
     ```
   - Used to save the library state in binary format for future use. If no file_name is provided, the library 
   will be saved to a file named `library.pkl`

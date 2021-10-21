@@ -1,8 +1,8 @@
 import pickle
 from collections.abc import Iterable
+from datetime import datetime
 from pathlib import Path
-
-import pandas as pd
+from typing import Optional
 
 from .book import Book
 from .loans import Loan
@@ -65,11 +65,25 @@ class Library:
         for book in self.books:
             if book.title == title and not book.on_loan:
                 book.on_loan = True
+                self._loans.append(Loan(book, loan_to, due_date))
                 return
         raise AttributeError(f'No books with the title \'{title}\' are available to loan at this time.')
 
-    def return_book(self, book_title: str, loaned_to: str, due_date: str = None):
-        ...
+    def return_book(self, book_title: str, loaned_to: str, due_date: str = None) -> Optional[float]:
+        if due_date:
+            try:
+                due_date = datetime.strptime(due_date, '%Y-%m-%d').date()
+            except ValueError:
+                raise ValueError('The \'due_date\' must be a valid date in the format YYYY-MM-DD')
+        loans = list(filter(lambda loan_: loan_.book.title == book_title
+                                          and (loan_.loaned_to == loaned_to if loaned_to else ...)
+                                          and (loan_.due_date == due_date if due_date else ...), self._loans))
+        if len(loans) == 0:
+            raise AttributeError(f'No loan exists for a book with title \'{book_title}\', that is currently on loan to {loaned_to}')
+        fine_due = loans[0].get_fine_due()
+        loans[0].return_book()
+
+        return fine_due or None
 
     def save_library(self, file_name: str = None) -> None:
         if file_name and not file_name.endswith('.pkl'):

@@ -8,7 +8,7 @@ import math
 
 
 def is_prime(number: int) -> bool:
-    if number <= 2 or number % 2 == 0:
+    if number <= 2:
         return False
     square_root = int(math.sqrt(number)) + 1
     for divisor in range(3, square_root, 2):

@@ -21,7 +21,7 @@ def main():
         try:
             print(f'The square root of {user_input} is {calculate_square_root(float(user_input))}')
         except ValueError:
-            print(f'Error: \'{user_input}\' is not a valid number')
+            print(f'Error: \'{user_input}\' is not a number')
 
 
 main()

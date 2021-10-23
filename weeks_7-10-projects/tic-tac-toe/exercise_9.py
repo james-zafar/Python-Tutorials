@@ -122,6 +122,7 @@ class TicTacToe:
         self.game_over = False
 
         self.init_game()
+        self.play_game()
 
     def init_game(self) -> None:
         self.init_db()
@@ -134,8 +135,6 @@ class TicTacToe:
         self.player_two = Player(player_two, 'X')
         if player_two and player_two not in self.database.Name.values:
             self.insert_into_database(player_two)
-
-        self.play_game()
 
     def init_db(self) -> None:
         path = Path(self.DATABASE_FILE)
@@ -171,7 +170,7 @@ class TicTacToe:
         return random.choice(empty_cells_1d)
 
     def is_valid_move(self, coordinates: tuple[int, int]) -> bool:
-        if coordinates[0] < 0 or coordinates[0] > 3 or coordinates[1] < 0 or coordinates[1] > 3:
+        if coordinates[0] < 0 or coordinates[0] > 2 or coordinates[1] < 0 or coordinates[1] > 2:
             print('Error: The x and y coordinates must be 0 <= value < 3')
             return False
         if not self.board.cell_is_empty(coordinates):

@@ -2,6 +2,8 @@ from typing import cast
 
 import pandas as pd
 
+from test_suite import exercise_4_tests, testable
+
 # Exercise 4
 #
 
@@ -30,14 +32,13 @@ class TicTacToe:
         if self.player_two and self.player_two not in self.database.Name.values:
             self.insert_into_database(self.player_two)
 
-        self.play_game()
-
     def init_db(self) -> None:
         if self.file_name:
             self.database = pd.read_csv(self.file_name)
         else:
             self.database = pd.DataFrame(columns=['Name', 'Wins', 'Losses'])
 
+    @testable
     def insert_into_database(self, name: str) -> None:
         row = [name, 0, 0]
         self.database.loc[-1] = row
@@ -62,11 +63,13 @@ class TicTacToe:
     def print_leaderboard(self) -> None:
         pass
 
+    @testable
     def get_ai_move(self) -> tuple[int, int]:
         pass
 
+    @testable
     def is_valid_move(self, coordinates: tuple[int, int]) -> bool:
-        if coordinates[0] < 0 or coordinates[0] > 3 or coordinates[1] < 0 or coordinates[1] > 3:
+        if coordinates[0] < 0 or coordinates[0] > 2 or coordinates[1] < 0 or coordinates[1] > 2:
             print('Error: The x and y coordinates must be 0 <= value < 3')
             return False
         if self.board[coordinates[0]][coordinates[1]] != '_':
@@ -97,6 +100,7 @@ class TicTacToe:
     def update_board(self, coordinates: tuple[int, int], symbol: str) -> None:
         pass
 
+    @testable
     def game_is_over(self, last_move: tuple[int, int], symbol: str) -> None:
         pass
 
@@ -105,5 +109,6 @@ class TicTacToe:
 
 
 if __name__ == '__main__':
+    exercise_4_tests(TicTacToe)
     input_file = str(input('Enter path to database file (or press enter to create new): ')) or None
     TicTacToe(input_file)

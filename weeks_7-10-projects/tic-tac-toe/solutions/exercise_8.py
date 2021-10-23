@@ -4,7 +4,13 @@ from typing import cast
 
 import pandas as pd
 
+from ..test_suite import testable
+
 # Exercise 8 - Solution
+# IMPORTANT: To run the solutions, you must run the following to run tic-tac-toe
+# as a package:
+# python -m tic-tac-toe.solutions.exercise_8
+# from outside of the tic-tac-toe directory
 
 
 class Player:
@@ -69,6 +75,7 @@ class TicTacToe:
         self.game_over = False
 
         self.init_game()
+        self.play_game()
 
     def init_game(self) -> None:
         self.init_db()
@@ -82,8 +89,6 @@ class TicTacToe:
         if player_two and player_two not in self.database.Name.values:
             self.insert_into_database(player_two)
 
-        self.play_game()
-
     def init_db(self) -> None:
         path = Path(self.DATABASE_FILE)
         if path.is_file():
@@ -91,6 +96,7 @@ class TicTacToe:
         else:
             self.database = pd.DataFrame(columns=['Name', 'Wins', 'Losses'])
 
+    @testable
     def insert_into_database(self, name: str) -> None:
         row = [name, 0, 0]
         self.database.loc[-1] = row
@@ -111,14 +117,16 @@ class TicTacToe:
         sorted_db = self.database.sort_values(by=['Wins'], ascending=False).reset_index(drop=True)
         print(sorted_db)
 
+    @testable
     def get_ai_move(self) -> tuple[int, int]:
         empty_cells = [[(x, y) for x, piece in enumerate(row) if piece == '_'] for y, row in enumerate(self.board.grid)]
         # Turn list into 1-d list
         empty_cells_1d = [pos for sub_list in empty_cells for pos in sub_list]
         return random.choice(empty_cells_1d)
 
+    @testable
     def is_valid_move(self, coordinates: tuple[int, int]) -> bool:
-        if coordinates[0] < 0 or coordinates[0] > 3 or coordinates[1] < 0 or coordinates[1] > 3:
+        if coordinates[0] < 0 or coordinates[0] > 2 or coordinates[1] < 0 or coordinates[1] > 2:
             print('Error: The x and y coordinates must be 0 <= value < 3')
             return False
         if not self.board.cell_is_empty(coordinates):

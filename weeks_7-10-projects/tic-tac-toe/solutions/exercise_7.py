@@ -4,6 +4,8 @@ from typing import cast
 
 import pandas as pd
 
+from ..test_suite import testable
+
 # Exercise 7 - Solution
 # For exercise 1:
 #  - Remove the input request in the if __name__ == '__main__' condition
@@ -13,6 +15,11 @@ import pandas as pd
 # For exercise 2:
 #  - In get_move, if the move is a move by the automated opponent, print a horizontal
 #    and new line before fetching the move.
+
+# IMPORTANT: To run the solutions, you must run the following to run tic-tac-toe
+# as a package:
+# python -m tic-tac-toe.solutions.exercise_7
+# from outside of the tic-tac-toe directory
 
 
 class TicTacToe:
@@ -28,6 +35,7 @@ class TicTacToe:
         self.game_over = False
 
         self.init_game()
+        self.play_game()
 
     def init_game(self) -> None:
         self.init_db()
@@ -39,8 +47,6 @@ class TicTacToe:
         if self.player_two and self.player_two not in self.database.Name.values:
             self.insert_into_database(self.player_two)
 
-        self.play_game()
-
     def init_db(self) -> None:
         path = Path(self.DATABASE_FILE)
         if path.is_file():
@@ -48,6 +54,7 @@ class TicTacToe:
         else:
             self.database = pd.DataFrame(columns=['Name', 'Wins', 'Losses'])
 
+    @testable
     def insert_into_database(self, name: str) -> None:
         row = [name, 0, 0]
         self.database.loc[-1] = row
@@ -73,6 +80,7 @@ class TicTacToe:
         sorted_db = self.database.sort_values(by=['Wins'], ascending=False).reset_index(drop=True)
         print(sorted_db)
 
+    @testable
     def get_ai_move(self) -> tuple[int, int]:
         empty_cells = [[(x, y) for x, piece in enumerate(row) if piece == '_'] for y, row in enumerate(self.board)]
         # Turn list into 1-d list
@@ -86,8 +94,9 @@ class TicTacToe:
         # chain.from_iterable(empty_cells)
         return random.choice(empty_cells_1d)
 
+    @testable
     def is_valid_move(self, coordinates: tuple[int, int]) -> bool:
-        if coordinates[0] < 0 or coordinates[0] > 3 or coordinates[1] < 0 or coordinates[1] > 3:
+        if coordinates[0] < 0 or coordinates[0] > 2 or coordinates[1] < 0 or coordinates[1] > 2:
             print('Error: The x and y coordinates must be 0 <= value < 3')
             return False
         if self.board[coordinates[0]][coordinates[1]] != '_':
@@ -118,6 +127,7 @@ class TicTacToe:
         self.board[coordinates[0]][coordinates[1]] = symbol
         self.game_is_over(coordinates, symbol)
 
+    @testable
     def game_is_over(self, last_move: tuple[int, int], symbol: str) -> None:
         row, col = last_move[0], last_move[1]
         target_symbol = {symbol}

@@ -120,6 +120,7 @@ class TicTacToe:
         self.game_over = False
 
         self.init_game()
+        self.play_game()
 
     def init_game(self) -> None:
         self.leaderboard.init_db()
@@ -133,14 +134,13 @@ class TicTacToe:
         if player_two and not self.leaderboard.player_exists(player_two):
             self.leaderboard.insert(player_two)
 
-        self.play_game()
-
+    @testable
     def get_ai_move(self) -> tuple[int, int]:
         # rand_coords = random.choice(self.board.empty_cells)
         return random.choice(self.board.empty_cells)
 
     def is_valid_move(self, coordinates: tuple[int, int]) -> bool:
-        if coordinates[0] < 0 or coordinates[0] > 3 or coordinates[1] < 0 or coordinates[1] > 3:
+        if coordinates[0] < 0 or coordinates[0] > 2 or coordinates[1] < 0 or coordinates[1] > 2:
             print('Error: The x and y coordinates must be 0 <= value < 3')
             return False
         if not self.board.cell_is_empty(coordinates):
@@ -190,7 +190,6 @@ class TicTacToe:
 
         self.leaderboard.print_leaderboard()
         self.leaderboard.close()
-
 
 
 def query_leaderboard(leader_board: Leaderboard = None) -> None:

@@ -2,7 +2,14 @@ from typing import cast
 
 import pandas as pd
 
+from ..test_suite import exercise_1_tests, testable
+
+
 # Exercise 1 - Solution
+# IMPORTANT: To run the solutions, you must run the following to run tic-tac-toe
+# as a package:
+# python -m tic-tac-toe.solutions.exercise_1
+# from outside of the tic-tac-toe directory
 
 
 class TicTacToe:
@@ -29,14 +36,13 @@ class TicTacToe:
         if self.player_two and self.player_two not in self.database.Name.values:
             self.insert_into_database(self.player_two)
 
-        self.play_game()
-
     def init_db(self) -> None:
         if self.file_name:
             self.database = pd.read_csv(self.file_name)
         else:
             self.database = pd.DataFrame(columns=['Name', 'Wins', 'Losses'])
 
+    @testable
     def insert_into_database(self, name: str) -> None:
         pass
 
@@ -54,9 +60,11 @@ class TicTacToe:
     def print_leaderboard(self) -> None:
         pass
 
+    @testable
     def get_ai_move(self) -> tuple[int, int]:
         pass
 
+    @testable
     def is_valid_move(self, coordinates: tuple[int, int]) -> bool:
         pass
 
@@ -66,6 +74,7 @@ class TicTacToe:
     def update_board(self, coordinates: tuple[int, int], symbol: str) -> None:
         pass
 
+    @testable
     def game_is_over(self, last_move: tuple[int, int], symbol: str) -> None:
         pass
 
@@ -74,5 +83,6 @@ class TicTacToe:
 
 
 if __name__ == '__main__':
+    exercise_1_tests(TicTacToe)
     input_file = str(input('Enter path to database file (or press enter to create new): ')) or None
     TicTacToe(input_file)

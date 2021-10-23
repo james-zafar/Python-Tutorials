@@ -2,6 +2,8 @@ from typing import cast
 
 import pandas as pd
 
+from test_suite import exercise_1_tests, testable
+
 # Welcome to the TicTacToe project!
 # In this project we will build a text-based implementation of Tic-Tac-Toe. We will
 # use Pandas to create a database to persist player statistics between games, and
@@ -55,6 +57,7 @@ class TicTacToe:
     def init_db(self) -> None:
         pass
 
+    @testable
     def insert_into_database(self, name: str) -> None:
         pass
 
@@ -72,9 +75,11 @@ class TicTacToe:
     def print_leaderboard(self) -> None:
         pass
 
+    @testable
     def get_ai_move(self) -> tuple[int, int]:
         pass
 
+    @testable
     def is_valid_move(self, coordinates: tuple[int, int]) -> bool:
         pass
 
@@ -84,6 +89,7 @@ class TicTacToe:
     def update_board(self, coordinates: tuple[int, int], symbol: str) -> None:
         pass
 
+    @testable
     def game_is_over(self, last_move: tuple[int, int], symbol: str) -> None:
         pass
 
@@ -92,5 +98,6 @@ class TicTacToe:
 
 
 if __name__ == '__main__':
+    exercise_1_tests(TicTacToe)
     input_file = str(input('Enter path to database file (or press enter to create new): ')) or None
     TicTacToe(input_file)

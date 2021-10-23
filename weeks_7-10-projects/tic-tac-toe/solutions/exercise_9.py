@@ -5,6 +5,10 @@ from typing import cast
 import pandas as pd
 
 # Exercise 9 - Solution
+# IMPORTANT: To run the solutions, you must run the following to run tic-tac-toe
+# as a package:
+# python -m tic-tac-toe.solutions.exercise_9
+# from outside of the tic-tac-toe directory
 
 
 class Player:
@@ -116,6 +120,8 @@ class TicTacToe:
         self.game_over = False
 
         self.init_game()
+        self.play_game()
+
 
     def init_game(self) -> None:
         player_one = str(input('Enter the name of Player 1: '))
@@ -128,8 +134,6 @@ class TicTacToe:
         if player_two and not self.leaderboard.player_exists(player_two):
             self.leaderboard.insert(player_two)
 
-        self.play_game()
-
     def get_ai_move(self) -> tuple[int, int]:
         empty_cells = [[(x, y) for x, piece in enumerate(row) if piece == '_'] for y, row in enumerate(self.board.grid)]
         # Turn list into 1-d list
@@ -138,7 +142,7 @@ class TicTacToe:
         return random.choice(empty_cells_1d)
 
     def is_valid_move(self, coordinates: tuple[int, int]) -> bool:
-        if coordinates[0] < 0 or coordinates[0] > 3 or coordinates[1] < 0 or coordinates[1] > 3:
+        if coordinates[0] < 0 or coordinates[0] > 2 or coordinates[1] < 0 or coordinates[1] > 2:
             print('Error: The x and y coordinates must be 0 <= value < 3')
             return False
         if not self.board.cell_is_empty(coordinates):

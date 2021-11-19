@@ -29,3 +29,7 @@ def main() -> None:
     for i in range(5001):
         if is_circular_prime(i):
             circular_primes.append(i)
+
+    print(circular_primes)
+
+main()

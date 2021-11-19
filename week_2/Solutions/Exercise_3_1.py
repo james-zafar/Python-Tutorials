@@ -19,8 +19,9 @@ quote = " I have 1 deck of cards with 4 suits and 13 values, making 52 cards all
 def remove_numeric(input_str: str) -> str:
     valid_words = []
     for word in input_str.split():
-        if not word.isnumeric():
-            valid_words.append(word)
+        if word.isnumeric():
+            word = numeric_to_alpha(int(word))
+        valid_words.append(word)
 
     return ' '.join(valid_words)
 

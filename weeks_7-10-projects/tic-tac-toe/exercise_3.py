@@ -13,7 +13,7 @@ from test_suite import exercise_3_tests, testable
 #     move - we will implement this later
 #   - Else, ask the user to input a x, y pair, giving them an appropriate prompt to
 #     indicate how they should format their input, for example:
-#     {player_name}: Enter the square you would like to play in in the format "x, y",
+#     {player_name}: Enter the square you would like to play in, in the format "x, y",
 #     where "0, 0" is the bottom left corner
 #   - Check the input is a valid pair of integers and store them as a tuple of integers.
 #   - Call is_valid_move to check the move is valid. If the function returns False, write
@@ -24,9 +24,9 @@ from test_suite import exercise_3_tests, testable
 # Implement the is_valid_move as follows:
 #   - Check if either the x or y coordinates are not within the 3x3 grid, and if they are,
 #     write a sensible error message to the console and return False
-#   - Check the the requested grid cell is not already occupied by another symbol, and if
+#   - Check the requested grid cell is not already occupied by another symbol, and if
 #   - it is, write a sensible error message to the console and return False
-#   - Otherwise, the move is valid and you should return True
+#   - Otherwise, the move is valid, and you should return True
 
 
 class TicTacToe:

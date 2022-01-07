@@ -15,6 +15,14 @@ from test_suite import exercise_1_tests, testable
 # this project, feel free to add functions of your own where you see fit.
 
 # Exercise
+# Implement init_db to do the following:
+#   - If the file_name class attribute is not None, then use Pandas to read the CSV file
+#     (you can assume the file is a valid CSV). Assign the result to the database attribute.
+#   - If the file_name attribute is None, then create a new Pandas DataFrame with the following
+#     three columns and assign it to the database attribute:
+#       - Name
+#       - Wins
+#       - Losses
 # In this exercise we will implement the init_game and init_db functions.
 # Implement init_game to do the following:
 #   - First call the init_db function.
@@ -27,14 +35,6 @@ from test_suite import exercise_1_tests, testable
 #     provided, assign it to that player_two class attribute.
 #   - Check if the name provided exists in the database, if not call insert_into_database
 #     with the players name - we will implement this later.
-# Implement init_db to do the following:
-#   - If the file_name class attribute is not None, then use Pandas to read the CSV file
-#     (you can assume the file is a valid CSV). Assign the result to the database attribute.
-#   - If the file_name attribute is None, then create a new Pandas DataFrame with the following
-#     three columns and assign it to the database attribute:
-#       - Name
-#       - Wins
-#       - Losses
 
 
 class TicTacToe:

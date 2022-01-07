@@ -66,7 +66,8 @@ class TicTacToe:
     def print_leaderboard(self) -> None:
         pass
 
-    @testable:
+    @testable
+    def get_ai_move(self) -> tuple[int, int]:
         pass
 
     @testable

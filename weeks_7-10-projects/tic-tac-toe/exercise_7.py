@@ -9,7 +9,7 @@ from test_suite import testable
 # Exercise 7 - Refactoring
 # We now have a fully functioning game of Tic-Tac-Toe which has both a one and two
 # player mode, and persists data about the players records between games. You may
-# have noticed that some of the features implemented up to this point do not always
+# have noticed that some features implemented up to this point do not always
 # work as expected, or you may have noticed some ways in which we could improve the
 # quality of the code. In this exercise we will address some of these problems before
 # implementing one final feature.
